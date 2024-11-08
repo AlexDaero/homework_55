@@ -37,7 +37,6 @@ const getInfo = () => {
     })
 
     const typeTasks = { Frontend: countFront, Backend: countBack }
-    const typesTasksObj = Object.create({ Frontend: countFront, Backend: countBack })
 
     console.log(`
 Общее время затраченное на 'Frontend' - ${sumCategory}
