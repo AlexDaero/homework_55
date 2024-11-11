@@ -9,31 +9,39 @@ const tasks = [
 ]
 
 const getInfo = () => {
-    let sumCategory = 0
-    let sumType = 0
-    let countUI = 0
     let countFront = 0
     let countBack = 0
+    let countUI = 0
+
+    const sumCategory = tasks.reduce((acc, currentValue) => {
+        if (currentValue.category === 'Frontend') {
+            countFront++
+            return acc + currentValue.timeSpent
+        } else if (currentValue.category === 'Backend') {
+            countBack++
+        }
+    })
+
+    const sumType = tasks.reduce((acc, currentValue) => {
+        if (currentValue.type === 'bug') return acc += currentValue.timeSpent
+    })
+
     const More4Hours = []
 
     tasks.reduce((accumulator, currentValue) => {
-        if (currentValue.category === 'Frontend') {
-            sumCategory += currentValue.timeSpent
-            countFront++
-        }
-        if (currentValue.category === 'Backend') countBack++
-        if (currentValue.type === 'bug') sumType += currentValue.timeSpent
         if (currentValue.timeSpent > 4) {
             const taskInfo = [currentValue.title, currentValue.type]
             More4Hours.push(taskInfo)
         }
     })
 
-    tasks.map((item) => {
-        const splitString = item.title.split(' ')
-        splitString.filter((item) => {
-            if (item === 'UI') countUI++
+    const splitTasks = tasks.map((item) => {
+        return item.title.split(' ').filter((item) => {
+            if (item === 'UI') {
+                return countUI++
+            }
         })
+        
     })
 
     const typeTasks = { Frontend: countFront, Backend: countBack }
